@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+
+  "name": "eToro - Twitter Macros ",
+  "description": "Help us, eToro SEM, to manege twitter campaigns.",
+  "version": "1.0",
+
+  "permissions": [ 
+    "tabs"
+  ],
+  "icons": { "48": "48icon.ico", "128": "128icon.ico" },
+"background": {
+    "scripts": ["background.js"]},
+ "content_scripts" : [
+    {
+      "matches" : [
+        "http://*.twitter.com/*",
+        "https://*.twitter.com/*"
+      ],
+      "js" : ["jquery2.js","myScript.js"]
+  }
+  ],
+  "browser_action": {
+    "default_icon": "19icon.ico",
+    "default_popup": "popup.html" 
+  }
+}  
