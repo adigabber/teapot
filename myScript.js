@@ -30,7 +30,7 @@ port.onMessage.addListener(function(msg) {
 function firsttime_ui(pack) {
 	console.log(pack);
 	var campaignArr = [];
-	var allActiveCampaignsContent = $('tr[id^="campaign_row"] .action-container.pause:not(.selected)').closest('tr').find('.campaignTitle').contents();
+	var allActiveCampaignsContent = $('tr[id^="campaign_row"] .action-container.pause:not(.selected)').closest('tr').find('.campaignTitle').contents(); // all camps names
 	for (var i = 0; i < allActiveCampaignsContent.length; i++) {
 		campaignArr.push({
 			camp: allActiveCampaignsContent[i].textContent
@@ -40,25 +40,25 @@ function firsttime_ui(pack) {
 }
 
 function Paused(pack) {
-	$('tr[id^="campaign_row"] .action-container.pause:not(.selected)').click();
+	$('tr[id^="campaign_row"] .action-container.pause:not(.selected)').click(); //paused all campaigns.. 
 	return "Paused all camp";
 }
 
 function open_camp_edit_tab(pack) {
-	var campHref = $("a:contains(" + pack + ")").closest('tr').find('.campaign-edit.action-tooltip').attr('href')
+	var campHref = $("a:contains(" + pack + ")").closest('tr').find('.campaign-edit.action-tooltip').attr('href') // open campaign edit tab
 	window.open(campHref);
 	return "OpenTheCamp";
 }
 
 function duplicate_tweets(pack) {
 	var tweetsContents = get_tweet_content();
-	//$('.item.selected').find('.checkbox').click();
+	$('.item.selected').find('.checkbox').click(); //unchecked current tweets
 	for (i = 0; i < tweetsContents.length; i++) {
 		$('.newTweet').click()
 		var TextArea = $("textarea");
 		TextArea[i].value = edit_tweets_140c(tweetsContents[i].tweet);
-		$('input:radio[name="nullcast_flag"]').filter('[value="1"]').attr('checked', true);
-		// $('.submit').click();
+		$('input:radio[name="nullcast_flag"]').filter('[value="1"]').attr('checked', true); //check promote only
+		$('.submit').removeAttr('disabled').click()
 	}
 	return "Dup"
 }
@@ -77,14 +77,14 @@ function get_tweet_content() {
 }
 
 function edit_tweets_140c(Tweet) {
-	console.log(Tweet.length);
+	// console.log(Tweet.length);
 	var editTweet;
 	if (Tweet.length >= 140) {
 		var indexHttp = Tweet.indexOf('http://')
 	console.log(indexHttp);
 	if (indexHttp != -1) {
-		console.log(Tweet.substring(0, indexHttp - 1));
-		console.log(Tweet.substring(indexHttp + 7, Tweet.length));
+		// console.log(Tweet.substring(0, indexHttp - 1));
+		// console.log(Tweet.substring(indexHttp + 7, Tweet.length));
 		editTweet = Tweet.substring(0, indexHttp - 1) + Tweet.substring(indexHttp + 7, Tweet.length);
 	}
 } else {
@@ -93,4 +93,7 @@ function edit_tweets_140c(Tweet) {
 return editTweet;
 }
 
-function done_func(pack){ return "Done"}
+function done_func(pack){ 
+	alert("Done function");
+	 return "Done"
+	}

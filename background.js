@@ -2,6 +2,7 @@ var portSC;
 var portPop;
 var portCampTab;
 var inProcess = false;
+var mainTab;
 var BGfunArr = {
   "UI": UI,
   "Paused": Paused,
@@ -19,8 +20,9 @@ chrome.runtime.onConnect.addListener(function(port) {
   if (port.name == "fromCStoBG") {
     if (!inProcess) {
       portSC = port;
+      mainTab = portSC.sender.tab;
       portSC.onMessage.addListener(function(msg) {
-        //not to send it to popup without checking
+        //TODO: not to send it to popup without checking
         portPop.postMessage({
           funcName: msg.funcName,
           pack: msg.pack
@@ -33,7 +35,8 @@ chrome.runtime.onConnect.addListener(function(port) {
         pack: "AllTw"
       });
       portCampTab.onMessage.addListener(function(msg) {
-        //close_wi func
+        chrome.tabs.remove(portCampTab.sender.tab.id) // close_wi func
+
         var sendToSC1 = open_camp_tabs(funcForTabs, ArrCamp);
         portSC.postMessage({
           funcName: sendToSC1[0],
@@ -54,10 +57,11 @@ chrome.runtime.onConnect.addListener(function(port) {
 });
 
 
+// open campaign tabs and ....
 
 function open_camp_tabs(funcName, pack) {
   ArrCamp = pack;
-  if (currCamp < ArrCamp.length) {
+  if (currCamp < ArrCamp.length - 1) {
     inProcess = true;
     currCamp++;
     funcForTabs = funcName;
@@ -66,6 +70,7 @@ function open_camp_tabs(funcName, pack) {
     inProcess = false;
     currCamp = -1;
     funcForTabs = "";
+    chrome.tabs.update(mainTab.id, {selected: true});
     return ["Done", pack]
   }
 
