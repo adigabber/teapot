@@ -17,7 +17,8 @@
         "http://*.twitter.com/*",
         "https://*.twitter.com/*"
       ],
-      "js" : ["jquery2.js","myScript.js"]
+      "js" : ["jquery2.js","myScript.js"],
+      "css": [ "bootstrap.css" ,"bootstrap.min.css","bootstrap-responsive.css"]
   }
   ],
   "browser_action": {
