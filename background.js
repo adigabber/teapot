@@ -35,7 +35,7 @@ chrome.runtime.onConnect.addListener(function(port) {
         pack: "AllTw"
       });
       portCampTab.onMessage.addListener(function(msg) {
-        chrome.tabs.remove(portCampTab.sender.tab.id) // close_wi func
+       chrome.tabs.remove(portCampTab.sender.tab.id) // close_wi func
 
         var sendToSC1 = open_camp_tabs(funcForTabs, ArrCamp);
         portSC.postMessage({
