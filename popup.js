@@ -57,8 +57,8 @@ port.onMessage.addListener(function(msg) {
 			// alert(this.name); 
 				port.postMessage({
 					funcName: this.name,
-					pack: [msg.pack[0],msg.pack[1]]
-					// pack: msg.pack //TODO:  I will create the checkbooks I will take only the campaigns who clicked..
+					// pack: [msg.pack[0],msg.pack[1]]
+					pack: msg.pack //TODO:  I will create the checkbooks I will take only the campaigns who clicked..
 			});
 		});
 	} else {
